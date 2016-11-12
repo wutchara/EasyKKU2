@@ -33,14 +33,14 @@
             android:text="@string/sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button2"
+            android:id="@+id/signInBtn"
             android:layout_weight="1" />
 
         <Button
             android:text="@string/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
+            android:id="@+id/signUpBtn"
             android:layout_weight="1" />
     </LinearLayout>
 
