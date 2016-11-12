@@ -1,5 +1,11 @@
 package kku.wutchara.rachadacr.easykku2;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +22,9 @@ public class SignUpActivity extends AppCompatActivity {
     private Button button;
     private EditText nameEditText, phoneEditText, userEditText, passwordEditText;
 
-    private String nameString, phonString, userString, passString;
+    private String nameString, phonString, userString, passString, imagrPathString, imageNameString;
+
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("12novV1", "Open Gallary.");
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Please Select App for View picture"), 0);
             }
         });
     }
@@ -94,4 +106,52 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.editTextPassword);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 0) && (resultCode == RESULT_OK)){
+
+            Log.d("12novV1", "Result OK!!!");
+
+            //Show Image
+            uri = data.getData();
+            //Log.d("12novV1", uri.toString() + "");
+
+            try {
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                imageView.setImageBitmap(bitmap);
+                //Log.d("12novV1", "Data : \"" + uri.toString() + "\"");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //Find Path of photo
+            imagrPathString = myFinPath(uri);
+            Log.d("12novV1", "PATH : \"" + imagrPathString + "\"");
+
+        } else {
+            Log.d("12novV1", "Result Not OK!!!");
+        }
+    }
+
+    private String myFinPath(Uri uri) {
+
+        String result = null;
+        String[] strings = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, strings, null, null, null);
+
+        if (cursor != null) {
+
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            result = cursor.getString(index);
+
+        } else {
+            //if in phone have one picture
+            result = uri.getPath();
+        }
+
+        return result;
+    }
 }//main class
