@@ -130,6 +130,10 @@ public class SignUpActivity extends AppCompatActivity {
             imagrPathString = myFinPath(uri);
             Log.d("12novV1", "PATH : \"" + imagrPathString + "\"");
 
+            //Find name of photo
+            imageNameString = imagrPathString.substring(imagrPathString.lastIndexOf("/") + 1); // + 1 because no save "
+            Log.d("12novV1", "Image Name : \"" + imageNameString + "\"");
+
         } else {
             Log.d("12novV1", "Result Not OK!!!");
         }
