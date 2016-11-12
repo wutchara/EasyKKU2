@@ -25,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String nameString, phonString, userString, passString, imagrPathString, imageNameString;
 
     private Uri uri;
+    private Boolean checkSelectImage = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,25 +64,30 @@ public class SignUpActivity extends AppCompatActivity {
 
                 loadData();
 
-                if(checkSpace() || checkImage()){
+                if(checkSpace()){
                     //Log.d("12novV1", "name: " + nameString);
                     Log.d("12novV1", "Have Space.");
 
                     MyAlert myDialog = new MyAlert();
                     myDialog.myDialog(SignUpActivity.this, R.drawable.danger,
                             "Warning" + "....", "On your input have space.\nPlease fill its.");
+                } else if (checkSelectImage){
+                    MyAlert myDialog = new MyAlert();
+                    myDialog.myDialog(SignUpActivity.this, R.drawable.danger,
+                            "Warning" + "....", "Please Select Image.");
                 } else {
                     Log.d("12novV1", "Not Have Space.");
-                    Toast.makeText(getApplicationContext(), "Not Have Space", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Not Have Space", Toast.LENGTH_SHORT).show();
+                    uploadImageToServer();
                 }
             }
         });
     }
 
-    private boolean checkImage() {
+    private void uploadImageToServer() {
 
-        return false;
     }
+
 
     private void loadData() {
         nameString = nameEditText.getText().toString().trim();
@@ -112,6 +118,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         if ((requestCode == 0) && (resultCode == RESULT_OK)){
 
+            checkSelectImage = false;
+
             Log.d("12novV1", "Result OK!!!");
 
             //Show Image
@@ -122,6 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
                 imageView.setImageBitmap(bitmap);
                 //Log.d("12novV1", "Data : \"" + uri.toString() + "\"");
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -136,6 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         } else {
             Log.d("12novV1", "Result Not OK!!!");
+            checkSelectImage = true;
         }
     }
 
