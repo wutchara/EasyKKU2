@@ -26,9 +26,22 @@ public class SignUpActivity extends AppCompatActivity {
         //Bind Widget
         bindWidget();
 
-        //Controller
+        //Controller Sign Up
         signUpController();
+
+        //Controller Image Button
+        imageController();
+
     }//main method
+
+    private void imageController() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("12novV1", "Open Gallary.");
+            }
+        });
+    }
 
     private void signUpController() {
 
@@ -38,17 +51,24 @@ public class SignUpActivity extends AppCompatActivity {
 
                 loadData();
 
-                if(checkSpace()){
+                if(checkSpace() || checkImage()){
                     //Log.d("12novV1", "name: " + nameString);
-                    Log.d("12novV1", "Have Space");
+                    Log.d("12novV1", "Have Space.");
 
-                    //MyAlert myDialog = new MyAlert();
-                    //myDialog.myDialog(MainActivity.class.this, "Warning....", "On your input have space.\nPlease fill its.");
+                    MyAlert myDialog = new MyAlert();
+                    myDialog.myDialog(SignUpActivity.this, R.drawable.danger,
+                            "Warning" + "....", "On your input have space.\nPlease fill its.");
                 } else {
+                    Log.d("12novV1", "Not Have Space.");
                     Toast.makeText(getApplicationContext(), "Not Have Space", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private boolean checkImage() {
+
+        return false;
     }
 
     private void loadData() {
@@ -66,6 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void bindWidget() {
+        imageView = (ImageView) findViewById(R.id.imageView2);
         button = (Button) findViewById(R.id.button2);
         nameEditText = (EditText) findViewById(R.id.editTextName);
         phoneEditText = (EditText) findViewById(R.id.editTextPhone);

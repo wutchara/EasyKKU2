@@ -3,5 +3,8 @@
 
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
+
     <string name="ok">OK</string>
+    <string name="warning">Warning</string>
+    <string name="messageSpace">On your input have space.\nPlease fill its.</string>
 </resources>

@@ -9,8 +9,9 @@ import android.content.DialogInterface;
  */
 
 public class MyAlert {
-    public void myDialog(Context context, String strTitle, String strMessage){
+    public void myDialog(Context context,int anInt, String strTitle, String strMessage){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setIcon(anInt);
         builder.setTitle(strTitle);
         builder.setMessage(strMessage);
         builder.setCancelable(false);
