@@ -16,6 +16,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private String userString, passwordString;
 
     private MyConstant myConstant;
+
+    private String[] nameString, phoneString, imageString;
+    private String truePassword;
+    private Boolean aBoolean = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,20 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 JSONArray jsonArray = new JSONArray(s);
+                nameString = new String[jsonArray.length()];
+                phoneString = new String[jsonArray.length()];
+                imageString = new String[jsonArray.length()];
 
+                for (int i = 0; i < jsonArray.length(); i++){
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    nameString[i] = jsonObject.getString("Name");
+                    phoneString[i] = jsonObject.getString("Phone");
+                    imageString[i] = jsonObject.getString("Image");
+
+                    Log.d("13novV3", i + ". Name : " + nameString[i]);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
