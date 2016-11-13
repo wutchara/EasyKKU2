@@ -7,4 +7,10 @@
     <string name="ok">OK</string>
     <string name="warning">Warning</string>
     <string name="messageSpace">On your input have space.\nPlease fill its.</string>
+
+    <string name="title_have_space">Have Space.</string>
+    <string name="title_user_fail">Username wrong.</string>
+    <string name="title_passwod_fail">Password wrong.</string>
+    <string name="measage_user_fail">Not Found Username On Database.</string>
+    <string name="message_password_fail">Password Worng. Please enter again.</string>
 </resources>
