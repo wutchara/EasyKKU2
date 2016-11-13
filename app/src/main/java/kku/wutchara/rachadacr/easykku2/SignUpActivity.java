@@ -1,10 +1,12 @@
 package kku.wutchara.rachadacr.easykku2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import org.jibble.simpleftp.SimpleFTP;
 
@@ -31,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private Uri uri;
     private Boolean checkSelectImage = true;
+    private String urlAddUser = "http://swiftcodingthai.com/kku/add_user_master.php";
+    private String urlImage = "http://swiftcodingthai.com/kku/Image";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +94,66 @@ public class SignUpActivity extends AppCompatActivity {
                     Log.d("12novV1", "Not Have Space.");
                     //Toast.makeText(getApplicationContext(), "Not Have Space", Toast.LENGTH_SHORT).show();
                     uploadImageToServer();
+                    upLoadStringToServer();
                 }
             }
         });
     }
+
+    private void upLoadStringToServer() {
+        AddNewUser addNewUser = new AddNewUser(SignUpActivity.this);
+        addNewUser.execute(urlAddUser);
+
+    }
+
+    //create inner class
+    private class AddNewUser extends AsyncTask<String, Void , String> {
+
+        //Explicit
+        private Context context;
+
+        public AddNewUser(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                Log.d("13novV1", "Try connect : " + urlImage + imageNameString);
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = new FormEncodingBuilder().add("isAdd", "true")
+                        .add("Name", nameString)
+                        .add("Phone", phonString)
+                        .add("User", userString)
+                        .add("Password", passString)
+                        .add("Image", urlImage + imageNameString)
+                        .build();
+
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url(strings[0]).post(requestBody).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string();
+
+            } catch (Exception e){
+                Log.d("13novV1", "e doIn : " + e.toString());
+                return null;
+            }
+        }//doInBack
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Log.d("13novV1", "Result : " + s);
+
+            if (Boolean.parseBoolean(s)) {
+                Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(context, "Upload Can\'t Success", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }//add new user
 
     private void uploadImageToServer() {
         //change policy
