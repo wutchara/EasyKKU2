@@ -114,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
                 } else if(passwordString.equals(truePassword)) {
                     //Password True
                     Toast.makeText(MainActivity.this, "Login Success!!", Toast.LENGTH_SHORT).show();
+
+                    //Intent
+                    Intent intent = new Intent(MainActivity.this, ServiceActivity.class);
+                    intent.putExtra("Name", nameString);
+                    intent.putExtra("Phone", phoneString);
+                    intent.putExtra("Image", imageString);
+
+                    startActivity(intent);
+                    finish(); //no back to Login
+
                 } else {
                     //Password fail
                     MyAlert  myAlert = new MyAlert();
