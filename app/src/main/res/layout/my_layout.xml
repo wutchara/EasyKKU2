@@ -42,14 +42,14 @@
                 android:textColor="@color/aText" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/my_call"
+                android:layout_width="50dp"
+                app:srcCompat="@drawable/icon_phone"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="21dp"
                 android:layout_marginStart="21dp"
                 android:id="@+id/imageView4"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_height="50dp" />
         </RelativeLayout>
 
     </LinearLayout>

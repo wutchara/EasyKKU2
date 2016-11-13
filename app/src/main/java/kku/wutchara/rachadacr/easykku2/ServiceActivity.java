@@ -33,6 +33,8 @@ public class ServiceActivity extends AppCompatActivity {
         phoneStrings = getIntent().getStringArrayExtra("Phone");
         imageStrings = getIntent().getStringArrayExtra("Image");
 
+        Log.d("13novV4", "Name : " + nameStrings + "\nPhone : " + phoneStrings + "\nImage : " + imageStrings);
+
         //Create List View
         MyAdapter myAdapter = new MyAdapter(ServiceActivity.this, nameStrings, phoneStrings, imageStrings);
         listView.setAdapter(myAdapter);
@@ -67,9 +69,9 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(Intent.ACTION_CALL);
-                intent.setData(Uri.parse("tel:=" + phoneStrings));
+                intent.setData(Uri.parse("tel:=" + phoneString));
 
-                Log.d("13novV4", phoneStrings + "");
+                Log.d("13novV4", "Call : " + phoneString);
                 //add permission call phone
                 if (ActivityCompat.checkSelfPermission(ServiceActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
