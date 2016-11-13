@@ -96,6 +96,30 @@ public class MainActivity extends AppCompatActivity {
                     imageString[i] = jsonObject.getString("Image");
 
                     Log.d("13novV3", i + ". Name : " + nameString[i]);
+
+                    //Check User
+                    if (userString.equals(jsonObject.getString("User"))) {
+                        aBoolean = false;
+                        truePassword = jsonObject.getString("Password");
+                    }
+                }//for
+
+                if (aBoolean) {
+                    //User Fail
+                    MyAlert  myAlert = new MyAlert();
+                    myAlert.myDialog(MainActivity.this, R.drawable.danger,
+                            getResources().getString(R.string.title_user_fail),
+                            getResources().getString(R.string.measage_user_fail));
+
+                } else if(passwordString.equals(truePassword)) {
+                    //Password True
+                    Toast.makeText(MainActivity.this, "Login Success!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    //Password fail
+                    MyAlert  myAlert = new MyAlert();
+                    myAlert.myDialog(MainActivity.this, R.drawable.danger,
+                            getResources().getString(R.string.title_passwod_fail),
+                            getResources().getString(R.string.message_password_fail));
                 }
 
             } catch (Exception e) {
