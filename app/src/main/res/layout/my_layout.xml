@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="@dimen/icon"
+        android:layout_height="@dimen/icon"
+        app:srcCompat="@drawable/question_man"
+        android:id="@+id/imageView"
+        android:layout_margin="10dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:text="Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewName"
+            android:textSize="@dimen/h1"
+            android:textStyle="normal|bold"
+            android:textColor="@color/aText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Phone Number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewPhone"
+                android:textSize="@dimen/h2"
+                android:textStyle="normal|italic"
+                android:textColor="@color/aText" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/my_call"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="21dp"
+                android:layout_marginStart="21dp"
+                android:id="@+id/imageView4"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
